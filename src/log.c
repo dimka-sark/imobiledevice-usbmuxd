@@ -29,6 +29,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <syslog.h>
+#include <android/log.h>
 
 #include "log.h"
 #include "utils.h"
@@ -63,7 +64,19 @@ static int level_to_syslog_level(int level)
 
 void usbmuxd_log(enum loglevel level, const char *fmt, ...)
 {
+	return;
+	/*
 	va_list ap;
+	va_start(ap, fmt);
+	if(level == LL_FLOOD) {
+        __android_log_vprint(ANDROID_LOG_INFO, "LIB_FLOOD", fmt, ap);
+	} else  {
+        __android_log_vprint(ANDROID_LOG_WARN, "LIB", fmt, ap);
+	}
+	va_end(ap);
+
+	return;
+
 	char *fs;
 
 	if(level > log_level)
@@ -98,4 +111,5 @@ void usbmuxd_log(enum loglevel level, const char *fmt, ...)
 	va_end(ap);
 
 	free(fs);
+	 */
 }

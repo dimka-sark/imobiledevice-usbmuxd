@@ -24,6 +24,7 @@
 
 #include <stdint.h>
 #include "utils.h"
+#include <libusb.h>
 
 #define INTERFACE_CLASS 255
 #define INTERFACE_SUBCLASS 254
@@ -69,5 +70,7 @@ int usb_discover(void);
 void usb_autodiscover(int enable);
 int usb_process(void);
 int usb_process_timeout(int msec);
+
+int public_usb_device_add(libusb_device* dev, libusb_device_handle *deviceHandle);
 
 #endif

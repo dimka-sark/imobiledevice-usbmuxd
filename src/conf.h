@@ -26,6 +26,8 @@
 
 #include <plist/plist.h>
 
+void set_base_config_path(const char* path);
+
 const char *config_get_config_dir();
 
 void config_get_system_buid(char **system_buid);

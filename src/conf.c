@@ -68,6 +68,7 @@
 #define CONFIG_FILE "SystemConfiguration"CONFIG_EXT
 
 static char *__config_dir = NULL;
+static char *__base_config_dir = NULL;
 
 #ifdef WIN32
 static char *config_utf16_to_utf8(wchar_t *unistr, long len, long *items_read, long *items_written)
@@ -104,6 +105,13 @@ static char *config_utf16_to_utf8(wchar_t *unistr, long len, long *items_read, l
 }
 #endif
 
+void set_base_config_path(const char* path) {
+	if(__base_config_dir != NULL) {
+		free(__base_config_dir);
+	}
+	__base_config_dir = strdup(path);
+}
+
 const char *config_get_config_dir()
 {
 	char *base_config_dir = NULL;
@@ -129,7 +137,7 @@ const char *config_get_config_dir()
 #ifdef __APPLE__
 	base_config_dir = strdup("/var/db");
 #else
-	base_config_dir = strdup("/var/lib");
+	base_config_dir = strdup(__base_config_dir);
 #endif
 #endif
 	__config_dir = string_concat(base_config_dir, DIR_SEP_S, CONFIG_DIR, NULL);
